@@ -282,7 +282,7 @@ typedef struct ChipRx
     u8 ucPixelEncoding;
     u8 ucRxFormat;
     u8 ucRxState;
-    void (*pHdmiRxNotify)(EnumChipRxEvent ucEvent);   // mf add
+    // void (*pHdmiRxNotify)(EnumChipRxEvent ucEvent);   // mf add
 }StructChipRx;
 
 
@@ -539,9 +539,30 @@ StructMipiTxDPhy g_stMipiTxDPhy;
 
 #define LPT_DI  0x29
 
+typedef enum
+{
+    LVDSTX  = 0x00,     
+    MIPITX  = 0x01,
+    
+}EnumChipTxSel;
+
+typedef enum
+{
+    SPort  = 0x01, // Single port : 1port
+    DPorts = 0x02,// Dual ports : 2port
+}Enum_PORT_NUM;
 
 
 
+typedef enum
+{
+
+    MIPITX_1LANE = 1,
+    MIPITX_2LANE = 2,
+    MIPITX_3LANE = 3,
+    MIPITX_4LANE = 4,
+    MIPITX_8LANE = 8,
+}Enum_PORTLANE_NUM;
 
 
 #endif

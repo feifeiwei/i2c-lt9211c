@@ -1,0 +1,45 @@
+
+
+&i2c0 {
+   status = "ok";
+   #address-cells = <1>;
+   #size-cells = <0>;
+
+    
+
+    deser0: lt9211c@2d {
+        status = "disabled";
+        compatible = "bst,lt9211c";
+        reg = <0x2d>;
+        reset-gpio = <&portd 30 0>;
+        regs = <0x41>;
+    };
+
+    deser1: lt9211c@29 {
+        status = "ok";
+        compatible = "bst,lt9211c";
+        reg = <0x29>;
+        reset-gpio = <&portd 29 0>;  /* reset 9211c gpio-126 */  // put in here  参数1则代表低电平有效，0则为高电平有效
+
+        regs = <0x45>;
+    };
+
+    deser2: lt9211c@21 {
+       status = "disabled";
+       reg = <0x21>;
+    };
+
+    deser3: lt9211c@22 {
+       status = "disabled";
+       reg = <0x22>;
+
+    };
+};
+
+#include "../common/a1000b-deser-2x2.dtsi"
+
+
+
+
+
+

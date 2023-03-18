@@ -1,0 +1,5 @@
+#include "../common/a1000b-isp-csi2-2x2.dtsi"
+#include "cas-desers.dtsi"
+#include "cas-cameras.dtsi"
+
+

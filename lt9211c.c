@@ -80,7 +80,7 @@
 #if TTLRX_DATARATE_MODE == SDR
 /*==============TTLRX SDR MODE SETTING==============*/
     #define     TTLRX_SYNC_INTER_MODE       ENABLED        //ENABLED/DISABLED  内同步信号则打开
-    #define     TTLRX_COLORSPACE            YUV422             //RGB/YUV444/YUV422
+    #define     TTLRX_COLORSPACE            YUV422             //RGB/YUV444/YUV422, YUV422内同步模式时ENABLED，其他模式时DISABLED。
     #define     TTLRX_INPUT_MODE            INPUT_BT1120_16BIT    //INPUT_RGB888    INPUT_RGB666    INPUT_RGB565    INPUT_YCBCR444
                                                             //INPUT_YCBCR422_8BIT   INPUT_YCBCR422_10BIT    INPUT_YCBCR422_12BIT
                                                             //INPUT_YCBCR422_16BIT  INPUT_YCBCR422_20BIT    INPUT_YCBCR422_24BIT
@@ -92,21 +92,21 @@
 // BT1120的话，设置成16bit
 #endif
 
-#if TTLRX_DATARATE_MODE == DDR
-/*==============TTLRX DDR MODE SETTING==============*/
-    #define     TTLRX_SYNC_INTER_MODE       ENABLED        //ENABLED/DISABLED
-    #define     TTLRX_COLORSPACE            YUV422             //RGB/YUV444/YUV422
-    #define     TTLRX_HALF_CLOCK_MODE       ENABLED        //ENABLED/DISABLED
-    #define     TTLRX_HALF_WIDTH_MODE       ENABLED        //ENABLED/DISABLED
-    #define     TTLRX_INPUT_MODE            INPUT_BT1120_16BIT    //INPUT_RGB888    INPUT_RGB666    INPUT_RGB565    INPUT_YCBCR444
-//                                                             //INPUT_YCBCR422_8BIT   INPUT_YCBCR422_10BIT    INPUT_YCBCR422_12BIT
-//                                                             //INPUT_YCBCR422_16BIT  INPUT_YCBCR422_20BIT    INPUT_YCBCR422_24BIT
-//                                                             //INPUT_BT656_8BIT      INPUT_BT656_10BIT       INPUT_BT656_12BIT
-//                                                             //INPUT_BT1120_8BIT     INPUT_BT1120_10BIT      INPUT_BT1120_12BIT
-//                                                             //INPUT_BTA_T1004_16BIT INPUT_BTA_T1004_20BIT   INPUT_BTA_T1004_24BIT
-//                                                             //INPUT_BT1120_16BIT    INPUT_BT1120_20BIT      INPUT_BT1120_24BIT
-/*==============TTLTX DDR MODE SETTING==============*/
-#endif
+// #if TTLRX_DATARATE_MODE == DDR
+// /*==============TTLRX DDR MODE SETTING==============*/
+//     #define     TTLRX_SYNC_INTER_MODE       ENABLED        //ENABLED/DISABLED
+//     #define     TTLRX_COLORSPACE            YUV422             //RGB/YUV444/YUV422
+//     #define     TTLRX_HALF_CLOCK_MODE       ENABLED        //ENABLED/DISABLED
+//     #define     TTLRX_HALF_WIDTH_MODE       ENABLED        //ENABLED/DISABLED
+//     #define     TTLRX_INPUT_MODE            INPUT_BT1120_16BIT    //INPUT_RGB888    INPUT_RGB666    INPUT_RGB565    INPUT_YCBCR444
+// //                                                             //INPUT_YCBCR422_8BIT   INPUT_YCBCR422_10BIT    INPUT_YCBCR422_12BIT
+// //                                                             //INPUT_YCBCR422_16BIT  INPUT_YCBCR422_20BIT    INPUT_YCBCR422_24BIT
+// //                                                             //INPUT_BT656_8BIT      INPUT_BT656_10BIT       INPUT_BT656_12BIT
+// //                                                             //INPUT_BT1120_8BIT     INPUT_BT1120_10BIT      INPUT_BT1120_12BIT
+// //                                                             //INPUT_BTA_T1004_16BIT INPUT_BTA_T1004_20BIT   INPUT_BTA_T1004_24BIT
+// //                                                             //INPUT_BT1120_16BIT    INPUT_BT1120_20BIT      INPUT_BT1120_24BIT
+// /*==============TTLTX DDR MODE SETTING==============*/
+// #endif
 
 
 // //vedio settings
@@ -117,9 +117,9 @@
 /*==============MIPITX PATTERN SETTING==============*/
 // #define         MIPITX_PATTERN_OUT_SEL      MIPI_CSI //MIPI_DSI         //MIPI_DSI/MIPI_CSI   mf mod
 // #define         MIPITX_PATTERN_COLORSPACE   RGB              //RGB/YUV422/YUV420
-// #define         MIPITX_PATTERN_OUTPUT_LANE  MIPITX_4LANE     //MIPITX_4LANE/MIPITX_3LANE/MIPITX_2LANE/MIPITX_1LANE
+// #define         MIPITX_PATTERN_OUTPUT_LANE  MIPITX_3LANE     //MIPITX_4LANE/MIPITX_3LANE/MIPITX_2LANE/MIPITX_1LANE
 // #define         MIPITX_PATTERN_CLOCK_BURST  DISABLED         //ENABLED/DISABLED
-// #define         MIPITX_PATTERN_OUTPUT_PORT  PORTA            //PORTA/PORTB
+// #define         MIPITX_PATTERN_OUTPUT_PORT  PORTB            //PORTA/PORTB
 
 
 #define     MIPITX_OUT_SEL             MIPI_CSI          //MIPI_DSI/MIPI_CSI        ？？
@@ -128,7 +128,7 @@
 #define     MIPITX_PORT_SEL            PORTA               //PORTA/PORTB/DOU_PORT   ？？ 
 #define     MIPITX_LANE_NUM            MIPITX_4LANE        //MIPITX_4LANE/MIPITX_3LANE/MIPITX_2LANE/MIPITX_1LANE, no MIPITX_8LANE  ？？
 #define     MIPITX_PORT_COPY           NO_COPY            //ENABLED/NO_COPY         ？？
-#define     MIPI_CLOCK_BURST           DISABLED             //ENABLED/DISABLED      ？？
+#define     MIPI_CLOCK_BURST           ENABLED             //ENABLED/DISABLED      ？？
 
 
 // #define FAIL 0
@@ -184,8 +184,6 @@ struct lt9211c_priv {
 	struct i2c_client *client;
 	int pclk;
 	int rst_gpio;
-
-
 
     struct deser_hub_dev hub;
     struct media_pad pads[lc9211_N_PADS];
@@ -1179,11 +1177,11 @@ void Drv_TtlRxMapping_Set(void)
                 HDMI_WriteI2C_Byte(0xc4,0x00);
                 HDMI_WriteI2C_Byte(0xc5,0x50);
             #endif
-            #if 0  //input YUV  Y: D23-D16    C: D15-D8    //8619C /YC no swap /high 16bit output
+            #if 1  //input YUV  Y: D23-D16    C: D15-D8    //8619C /YC no swap /high 16bit output   // color die
                 HDMI_WriteI2C_Byte(0xc4,0x00);
-                HDMI_WriteI2C_Byte(0xc5,0x40);
+                HDMI_WriteI2C_Byte(0xc5,0x40);        
             #endif
-            #if 1  //input YUV  C: D23-D16    Y: D15-D8    //8619C /YC swap /high 16bit output
+            #if 0  //input YUV  C: D23-D16    Y: D15-D8    //8619C /YC swap /high 16bit output
                 HDMI_WriteI2C_Byte(0xc4,0x00);
                 HDMI_WriteI2C_Byte(0xc5,0x00);
             #endif
@@ -3133,9 +3131,9 @@ static int register_subdev(struct lt9211c_priv *priv)
 
     snprintf(sd->name, sizeof(sd->name), "%s", dev_name(hub->dev));
 
-    PRINT_DEG("vv9211 sd: %s \n", sd->name); // 0-0029
+    PRINT_DEG("vv9211c_03 sd: %s \n", sd->name); // 0-0029
     // PRINT_DEG("vv9211 hub: %s \n", hub->name);
-    PRINT_DEG("vv9211: %s \n", dev_name(hub->dev));   // 0-0029
+    PRINT_DEG("vv9211_03: %s \n", dev_name(hub->dev));   // 0-0029
 
     sd->entity.function = MEDIA_ENT_F_VID_IF_BRIDGE;
     priv->pads[lc9211_SOURCE].flags = MEDIA_PAD_FL_SOURCE;
@@ -3155,7 +3153,7 @@ static int register_subdev(struct lt9211c_priv *priv)
         return -1;
     }
 
-    pr_info("~~vv9211 v4l2: registe_subdev ok!!");
+    pr_info("~~vv9211_03 v4l2: registe_subdev ok!!");
     return 0;
 }
 
@@ -3260,7 +3258,7 @@ static int lt9211c_probe(struct i2c_client *client, const struct i2c_device_id *
 	int ret;
 	// u8 val = 0;
 
-    PRINT_DEG("LT9211 I2C Address: 0x%02x\n", client->addr);   // 0x29 //设备地址
+    PRINT_DEG("LT9211 I2C Address: 0x%02x\n", client->addr);   // 0x30 //设备地址
 
 	//lt9211 复位低100ms高100ms
 	if(!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {     // ok
@@ -3317,7 +3315,7 @@ static int lt9211c_probe(struct i2c_client *client, const struct i2c_device_id *
     usleep_range(5000, 10000); 
     pr_info("~~~~~~~~~lt9211c reset the priv->rst_gpio!");  
     usleep_range(5000, 10000); 
-
+    
     lt9211_read_ID();
 
 
